@@ -1,0 +1,32 @@
+out3.txt 
+log3.txt 
+stat3.txt 
+plot3.txt 
+boot3.txt 
+bootprog3.txt 
+Options;
+  TYPE=LINE; 
+  DISTANCE=PERP /UNITS='Meters' /WIDTH= 20;
+  Area /Units='Square kilometer';
+  Object=Single;
+  Selection=Sequential;
+  Confidence=95;
+  Lookahead=1;
+  Maxterms=5;
+  Print=Selection;
+End;
+Data /Structure=Flat;
+  Fields=STR_LABEL, STR_AREA, SMP_LABEL, SMP_EFFORT, DISTANCE;
+  Infile= datain.txt /NoEcho;
+End;
+Estimate;
+  Distance /Width=20;
+  Detection=All;
+  Estimator /Key=UN /Adjust=PO /Criterion=AIC;
+  Estimator /Key=HN /Adjust=HE /Criterion=AIC;
+  Estimator /Key=HA /Adjust=PO /Criterion=AIC;
+  Monotone=Strict;
+  Pick=AIC;
+  VarN=POISSON;
+End;
+

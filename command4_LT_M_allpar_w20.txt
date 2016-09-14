@@ -1,0 +1,28 @@
+out4.txt 
+log4.txt 
+stat4.txt 
+plot4.txt 
+boot4.txt 
+bootprog4.txt 
+Options;
+  TYPE=LINE; 
+  DISTANCE=PERP /UNITS='Meters' /WIDTH= 20;
+  Area /Units='Square kilometer';
+  Object=Single;
+  Selection=Specify;
+  Confidence=95;
+  Print=Selection;
+End;
+Data /Structure=Flat;
+  Fields=STR_LABEL, STR_AREA, SMP_LABEL, SMP_EFFORT, DISTANCE;
+  Infile= datain.txt /NoEcho;
+End;
+Estimate;
+  Distance /Width=20;
+  Detection=All;
+  Estimator /Key=HA /Adjust=CO /NAP=0;
+  Monotone=Strict;
+  Pick=AIC;
+  VarN=POISSON;
+End;
+

@@ -1,0 +1,30 @@
+out1.txt 
+log1.txt 
+stat1.txt 
+plot1.txt 
+boot1.txt 
+bootprog1.txt 
+Options;
+  TYPE=LINE; 
+  DISTANCE=PERP /UNITS='Meters' /WIDTH= 30;
+  Object=Single;
+  Selection=Specify;
+  Confidence=95;
+  Print=Selection;
+End;
+Data /Structure=Flat;
+  Fields=STR_LABEL, STR_AREA, SMP_LABEL, SMP_EFFORT, DISTANCE;
+  Infile= datain.txt /NoEcho;
+End;
+Estimate;
+  Distance /Width=30;
+  Detection=All;
+  Estimator /Key=UN /Adjust=CO /NAP=2;
+  Estimator /Key=UN /Adjust=PO /NAP=2;
+  Estimator /Key=HN /Adjust=CO /NAP=1;
+  Estimator /Key=HN /Adjust=HE /NAP=1;
+  Estimator /Key=HA /Adjust=CO /NAP=0;
+  Monotone=Strict;
+  Pick=AIC;
+  VarN=POISSON;
+End;
